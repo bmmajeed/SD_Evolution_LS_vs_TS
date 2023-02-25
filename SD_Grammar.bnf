@@ -1,0 +1,25 @@
+<final> ::= <parameters> \n <sequential>
+<parameters> ::= "reg [1:0]state = 2'b00;\n
+                  parameter S0 = 2'b00;\n
+                  parameter S1 = 2'b01;\n
+                  parameter S2 = 2'b11;\n "
+<sequential> ::= "always @ (posedge clk) begin \n
+                  if (rst == 1)begin \n
+                      state <= S0; \n
+                      out <= 0; \n end \n
+                  else if (rst == 0) \n begin \n
+                      if (state == S0) \n begin \n
+                          "<states_block> \n" end \n
+                      else if (state == S1) \n begin \n
+                          "<states_block> \n" end \n
+                      else if (state == S2) \n begin \n
+                          "<states_block> \n" end \n
+                  end \n end \n"
+<states_block> ::= "if (inp==1)\n begin \n
+                        state <= " <state> ";\n
+                        out <= "<out>"; end \n
+                    else if(inp == 0) \n begin \n
+                        state <= " <state> ";\n
+                        out <= "<out>"; end"
+<state> ::= "S0"|"S1"|"S2"
+<out> ::= "0"|"1"
